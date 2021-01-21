@@ -11,7 +11,11 @@ const app = express()
 
 const hbs = exphbs.create({
     defaultLayout: 'main',
-    extname: 'hbs'
+    extname: 'hbs',
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true
+      }
 })
 
 app.engine('hbs', hbs.engine)
@@ -30,10 +34,11 @@ const PORT = process.env.PORT || 3000
 
 async function start() {
     try {
-        const url = 'mongodb+srv://danylo:T4mMQ0F5aDSJziYq@cluster0.r3a4j.mongodb.net/<dbname>?retryWrites=true&w=majority'
+        const url = 'mongodb+srv://danylo:T4mMQ0F5aDSJziYq@cluster0.r3a4j.mongodb.net/shop?retryWrites=true&w=majority'
         await mongoose.connect(url, {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            useFindAndModify: false
         })
         app.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`)
