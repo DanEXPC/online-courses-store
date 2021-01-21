@@ -28,6 +28,31 @@ class Cart {
         })
     }
 
+    static async remove(id) {
+        const cart = await Cart.fetch()
+
+        const idx = cart.courses.findIndex(c => c.id === id)
+        const course = cart.courses[idx]
+
+        if (course.count === 1) {
+            cart.courses = cart.courses.filter(c => c.id !== id)
+        } else {
+            cart.courses[idx].count--
+        }
+
+        cart.price -= course.price
+
+        return new Promise((resolve, reject) => {
+            fs.writeFile(path.join(__dirname, '..', 'data', 'cart.json'), JSON.stringify(cart), err => {
+                if (err) {
+                    refect(err)
+                } else {
+                    resolve(cart)
+                }
+            })
+        })
+    }
+
     static async fetch() {
         return new Promise((resolve, reject) => {
             fs.readFile(path.join(__dirname, '..', 'data', 'cart.json'), (err, content) => {
