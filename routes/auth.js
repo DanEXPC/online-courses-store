@@ -55,7 +55,7 @@ router.post('/register', async (req, res) => {
         const candidate= await User.findOne({ email })
 
         if (candidate) {
-            req.flash('registerError', 'User with such email already registred')
+            await req.flash('registerError', 'User with such email already registred')
             res.redirect('/auth/login#register')
         } else {
             const hashPassword = await bcrypt.hash(password, 10)
