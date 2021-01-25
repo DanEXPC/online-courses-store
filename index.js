@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const csrf = require('csurf')
+const { flash } = require('express-flash-message')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const session = require('express-session')
@@ -44,6 +45,7 @@ app.use(session({
     store
 }))
 app.use(csrf())
+app.use(flash({ sessionKeyName: 'flashMessage' }))
 app.use(varMiddleware)
 app.use(userMiddleware)
 
