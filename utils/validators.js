@@ -15,8 +15,8 @@ exports.registerValidators = [
             }
         })
         .normalizeEmail(),
-    body('password', 'Password must be at least 6 characters long')
-        .isLength({min: 6, max: 56}).isAlphanumeric()
+    body('password', 'Password must be at least 5 characters long')
+        .isLength({min: 5, max: 56}).isAlphanumeric()
         .trim(),
     body('confirm').custom((value, {req}) => {
         if (value !== req.body.password) {
@@ -28,4 +28,11 @@ exports.registerValidators = [
     body('name').isLength({min: 3})
         .withMessage('Name must be at least 3 characters long')
         .trim()
+]
+
+
+exports.courseValidators = [
+    body('title').isLength({min: 3}).withMessage('Title must be at least 3 characters long').trim(),
+    body('price').isNumeric().withMessage('Enter correct price'),
+    body('img').isURL().withMessage('Enter correct url')
 ]
