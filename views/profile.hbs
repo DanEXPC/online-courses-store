@@ -1,0 +1,38 @@
+<h1>Profile</h1>
+
+<div class="row">
+    <div class="col s6">
+        <img
+            class="avatar" 
+            src="https://avatars.githubusercontent.com/u/499550?s=460&u=de41ec9325e8a92e281b96a1514a0fd1cd81ad4a&v=4"
+            alt="profile">
+
+        <p>There’s no profile picture</p>
+    </div>
+
+    <div class="col s6">
+        <form action="/profile" method="POST">
+            <p>Your email: <strong>{{user.email}}</strong></p>
+
+            <div class="input-field">
+                <input id="name" name="name" type="text" class="validate" required value="{{user.name}}">
+                <label for="name">Your name</label>
+                <span class="helper-text" data-error="Name can not be empty"></span>
+            </div>
+
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>File</span>
+                    <input type="file" name="avatar">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+            </div>
+
+            <input type="hidden" name="_csrf" value="{{csrf}}">
+
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+</div>
